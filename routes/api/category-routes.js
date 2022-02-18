@@ -47,6 +47,36 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
+  Category.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((category) => {
+      return Product.findAll({ where: { category_id: req.params.id } });
+    })
+    .then((products) => {
+      const productsIds = products.map(( { category_id }) => category_id);
+      const newProducts = req.body.productIds
+        .flter((product_id) => !productsIds.includes(product_id))
+        .map((product_id) => {
+          return {
+            category_id: req.params.id,
+            product_id,
+          };
+        });
+      const productsToRemove = products
+        .filter(({ product_id }) => !req.body.productIds.includes(product_id))
+        .map(({ id }) => id);
+      return Promise.all([
+        Product.destroy({ where: { id: productsToRemove } }),
+        Product.bulkCreate(newProducts),
+      ]);
+    })
+    .then((updatedProducts) => res.json(updatedProducts))
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 });
 
 router.delete('/:id', async (req, res) => {
