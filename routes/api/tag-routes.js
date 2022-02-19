@@ -35,15 +35,35 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
   // create a new tag
-  try {
+  Tag.create(req.body)
+    .then((tag) => {
+      if (req.body.productIds.length) {
+        const productTagIdArr = req.body.productIds.map((product_id) => {
+          return {
+            tag_id: tag.id,
+            product_id,
+          };
+        });
+        return ProductTag.bulkCreate(productTagIdArr);
+      }
+      res.status(200).json(tag);
+    })
+    .then((productTagIds) => res.status(200).json(productTagIds))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
+  /*try {
     const tagData = await Tag.create(req.body);
     res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err);
   }
-});
+});*/
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value

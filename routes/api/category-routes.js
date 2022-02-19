@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
-  Category.update(req.body, {
+  const categoryData = Category.update(req.body, {
     where: {
       id: req.params.id,
     },
@@ -73,7 +73,13 @@ router.put('/:id', (req, res) => {
         Product.bulkCreate(newProducts),
       ]);
     })
-    .then((updatedProducts) => res.json(updatedProducts))
+    .then((updatedProducts) => {
+      if (updatedProducts) {
+        res.json(updatedProducts)
+      } else {
+        res.status(200).json(categoryData)
+      }
+    })
     .catch((err) => {
       res.status(400).json(err);
     });
