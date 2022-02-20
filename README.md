@@ -13,7 +13,7 @@ The following step was to write the code to define the routes inside the categor
 
 To see the application in use watch this [Walkthrough Video](https://drive.google.com/file/d/1siY7YSGeUNKQLe24yY5z2R1RMjnu1L1-/view?usp=sharing)
 
-The application looks like this:
+Here are some images of some routes when they are executed using Insomnia:
 
 ![E-commerce Back End 1](./assets/images/e-commerce-back-end-1.png)
 
