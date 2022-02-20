@@ -9,9 +9,9 @@ First, I set up MySQL user and passwords with environment variables, to get acce
 
 The following step was to write the code to define the routes inside the category-routes.js product-routes.js and tag-routes.js files. For this task I used many asynchronous functions using `async` `await`. For the GET routes I used `findAll()` and `findByPk()` Sequelize methods with the respective models, to be able to read the information in the database for existing Categories, Products and Tags. For the POST route I employed the `create()` method, while for the PUT and DELETE routes I used `update()` and `destroy()` methods respectively. The final I wrote was some lines of code in the server.js file using the `sync()` method to synchronize the sequelize models to the database and after that turn on the server.
 
-## Usage & [Walkthrough Video]()
+## Usage & [Walkthrough Video](https://drive.google.com/file/d/1siY7YSGeUNKQLe24yY5z2R1RMjnu1L1-/view?usp=sharing)
 
-To see the application in use watch this [Walkthrough Video]()
+To see the application in use watch this [Walkthrough Video](https://drive.google.com/file/d/1siY7YSGeUNKQLe24yY5z2R1RMjnu1L1-/view?usp=sharing)
 
 The application looks like this:
 
